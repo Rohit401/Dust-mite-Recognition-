@@ -14,8 +14,8 @@ app = Flask(__name__)
 STATIC_FOLDER = 'stati'
 # Path to the folder where we'll store the upload before prediction
 UPLOAD_FOLDER = STATIC_FOLDER + '/uploadd'
-#FOLDER = 'Gallery'
-#ROH_FOLDER = FOLDER + '/galleryuploads'
+FOLDER = 'Gallery'
+GALLERY_FOLDER = FOLDER + '/galleryuploads'
 
 
 
@@ -43,15 +43,18 @@ def predict():
     label = ['cat', 'dog']
     prediction = prediction[0][0]
     pree = label[prediction]
-    #if pree == 'cat':
-        #pree = os.path.join()
-    return render_template('predict.html',var = pree)
+    if pree == 'cat':
+        gallery = os.path.join(GALLERY_FOLDER, img.filename)
+        img.save(gallery)
+    return render_template('predict.html',var = pree,image_file_name=img.filename)
 
 @app.route('/upload/<filename>')
 def send_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
-
+@app.route('/gallery')
+def gallery():
+    return render_template('gallery.html')
 
 
 if __name__ == '__main__':
