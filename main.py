@@ -19,7 +19,7 @@ GALLERY_FOLDER = FOLDER + '/galleryuploads'
 
 
 
-model=load_model('cnn_.h5')
+model=load_model('Dustmite.h5')
 
 @app.route('/')
 def home():
